@@ -2,15 +2,11 @@
 #include "givenA2.h"
 
 
-
 int main(){
 
-    int yes_no = 0;
-    int result;
+    char ipAddress[16]; //is this legal? is this what I am suppoused to do?
 
-    result = printer(yes_no);
-
-    printf("%d", result);
+    readIPAddress (ipAddress);
 
 
 
