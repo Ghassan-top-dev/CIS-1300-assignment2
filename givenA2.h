@@ -3,8 +3,6 @@
 
 #define MAX 16
 
-int printer(int printy); 
-
 // Task 1
 void readIPAddress (char ipAddress []);
 
