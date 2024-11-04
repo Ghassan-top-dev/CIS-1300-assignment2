@@ -1,11 +1,13 @@
+//how can I turn the smaller binary values into a long binary value
 #include <stdio.h>
 
 int main() {
     char ip[] = "198.78.1.0";  // IP address to process
     int octets[4];
-    int newOctet[8]; 
+    int newOctet[16]; 
     int i, j, div;
     int bits = 0; //how many iterations? 8 of course
+    long finalLong;
 
     // Attempt to parse IP address into four integers
     int result = sscanf(ip, "%d.%d.%d.%d", &octets[0], &octets[1], &octets[2], &octets[3]);
@@ -40,8 +42,7 @@ int main() {
 
         for(j = bits -1; j>=0;j--){
 
-
-            printf("%d", newOctet[j]);
+            printf("%d", newOctet[j]); 
         }
     }
     
@@ -52,3 +53,6 @@ int main() {
 
     return 0;
 }
+
+
+
