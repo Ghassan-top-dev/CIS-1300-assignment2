@@ -3,7 +3,8 @@
 int main() {
     char ip[] = "198.78.1.0";  // IP address to process
     int octets[4];
-    int i, div;
+    int newOctet[8]; 
+    int i, j, div;
     int bits = 0; //how many iterations? 8 of course
 
     // Attempt to parse IP address into four integers
@@ -25,10 +26,11 @@ int main() {
 
     for (i = 0; i < 4; i++) //run for all 4 octets
     {
+        bits = 0;
         div = octets[i]; 
         do{
             
-            octets[bits] = div % 2;
+            newOctet[bits] = div % 2;
             div = div / 2;
             bits++;
             
@@ -36,10 +38,10 @@ int main() {
         }while(bits != 8);
 
 
-        for(i = bits -1; i>=0;i--){
+        for(j = bits -1; j>=0;j--){
 
 
-            printf("%d", octets[i]);
+            printf("%d", newOctet[j]);
         }
     }
     
