@@ -1,11 +1,13 @@
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 #include "givenA2.h"
 
 //gcc -Wall -std=c99 muradAghaGhassanA2Main.c muradAghaGhassanA2.c
 
 
 // Task 1
-//is this how the function should be or do I need to have scanf in main? 
+//is this how the function should be or do I need to have scanf in main? - this is fine
 void readIPAddress (char ipAddress []){
 
     int octetInput1 = -1, octetInput2 = -1, octetInput3 = -1, octetInput4 = -1; 
@@ -44,7 +46,7 @@ void readIPAddress (char ipAddress []){
     sprintf(string4, "%d", octetInput4); 
     strcat(ipAddress, string4);
 
-    printf("IP Addr: %s", ipAddress); //is this how I am suppoused to print the function?
+    //is this how I am suppoused to print the function?
     //it says not to print it 
 
 }
@@ -52,4 +54,95 @@ void readIPAddress (char ipAddress []){
 
 //task 2
 
-long int convertIPToLongNumber ( char ipAddress [], int lengthIPAddr, int * numDigits);
+
+int charToInt(char ipAddress []); //prototype. can I have the prototype here? Do I even need it???
+
+int charToInt(char ipAddress []){
+    char newIp1[4]; 
+    char newIp2[4]; 
+    char newIp3[4]; 
+    char newIp4[4]; 
+
+    char *token = strtok(ipAddress, ".");
+
+    while (token != NULL) {
+
+        // Copy token into newIp1
+        for (int i = 0; i < 3 && token[i] != '\0'; i++) {
+            newIp1[i] = token[i];
+        }
+        newIp1[3] = '\0';  // Null-terminate newIp1 for safe string handling
+        
+        token = strtok(NULL, ".");
+        break;
+    }
+    
+    while (token != NULL) {
+
+        // Copy token into newIp1
+        for (int i = 0; i < 3 && token[i] != '\0'; i++) {
+            newIp2[i] = token[i];
+        }
+        newIp2[3] = '\0';  // Null-terminate newIp1 for safe string handling
+        
+        token = strtok(NULL, ".");
+        break;
+    }
+    
+    while (token != NULL) {
+
+        // Copy token into newIp1
+        for (int i = 0; i < 3 && token[i] != '\0'; i++) {
+            newIp3[i] = token[i];
+        }
+        newIp3[3] = '\0';  // Null-terminate newIp1 for safe string handling
+        
+        token = strtok(NULL, ".");
+        break;
+    }
+    
+    while (token != NULL) {
+
+        // Copy token into newIp1
+        for (int i = 0; i < 3 && token[i] != '\0'; i++) {
+            newIp4[i] = token[i];
+        }
+        newIp4[3] = '\0';  // Null-terminate newIp1 for safe string handling
+        
+        token = strtok(NULL, ".");
+        break;
+    }
+    
+    // Print newIp1 as a string
+    printf("%s\n", newIp1);
+    printf("%s\n", newIp2);
+    printf("%s\n", newIp3);
+    printf("%s\n", newIp4);
+
+
+
+
+}
+
+
+
+
+/*
+
+
+int countDig (char ipAddress[]){
+
+        int lengthIPAddr = strlen(ipAddress)
+    }
+
+*/    
+
+
+long int convertIPToLongNumber ( char ipAddress [], int lengthIPAddr, int * numDigits){
+
+
+    
+
+
+
+}
