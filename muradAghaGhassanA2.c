@@ -81,7 +81,6 @@ int countDig (int finalLong){ //digit counter
     return counter; 
 }
 
-
 char classifyIPAddress (char ipAddress []){ //task 3
 
     int octets[4];
