@@ -47,13 +47,31 @@ void readIPAddress (char ipAddress []){
     strcat(ipAddress, string4);
 
     //is this how I am suppoused to print the function?
-    //it says not to print it 
+    //it says not to print it - print it in main
 
 }
 
 
 //task 2
 
+
+
+// int countDig (int); //do I have to put the prototype? or do I just put the header and body? // put prototype
+
+// int countDig (int){
+
+//     char ipAddress[16] = ""; 
+
+//     int ipLength = strlen(ipAddress) - 3;
+
+
+
+// } I asked a question in main...
+
+
+
+
+/*
 
 int charToInt(char ipAddress []); //prototype. can I have the prototype here? Do I even need it???
 
@@ -125,6 +143,9 @@ int charToInt(char ipAddress []){
 }
 
 
+*/
+
+
 
 
 /*
@@ -137,10 +158,48 @@ int countDig (char ipAddress[]){
 
 */    
 
-
+//task1      might need    
 long int convertIPToLongNumber ( char ipAddress [], int lengthIPAddr, int * numDigits){
+    
+    int octets[4];
+    int i, j, div;
+    int bits = 0; //how many iterations? 8 of course
+    int newOctet[16]; 
+    char placeHolderTemp[36] = ""; //this will temperorially hold each binary block
+    char binaryStr[36] = ""; //this will hold the full binary string
 
 
+
+    int result = sscanf(ipAddress, "%d.%d.%d.%d", &octets[0], &octets[1], &octets[2], &octets[3]);
+
+    for (i = 0; i < 4; i++) //run for all 4 octets
+    {
+        bits = 0;
+        div = octets[i]; 
+        do{
+            
+            newOctet[bits] = div % 2;
+            div = div / 2;
+            bits++;
+            
+
+        }while(bits != 8);
+
+
+        for(j = bits -1; j>=0;j--){
+
+            sprintf(placeHolderTemp, "%d", newOctet[j]);
+            strcat(binaryStr,placeHolderTemp); 
+        }
+        
+    }
+
+
+    long finalLong; 
+
+    finalLong = strtol(binaryStr, NULL, 2);
+
+    return finalLong; 
     
 
 
