@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "givenA2.h"
 
+// gcc -std=c99 -Wall muradAghaGhassanA2.c muradAghaGhassanA2Main.c
 void readIPAddress (char ipAddress []){ // Task 1
 
     int octetInput1 = -1, octetInput2 = -1, octetInput3 = -1, octetInput4 = -1; 
@@ -38,36 +39,67 @@ void readIPAddress (char ipAddress []){ // Task 1
     strcat(ipAddress, string4);
 }
 
-long int convertIPToLongNumber ( char ipAddress [], int lengthIPAddr, int * numDigits){ //task2       
+long int convertIPToLongNumber ( char ipAddress [], int lengthIPAddr, int * numDigits){
+    int octet0, octet1, octet2, octet3;
+    int octetOfBinary0[8], octetOfBinary1[8], octetOfBinary2[8], octetOfBinary3[8];
+    int allOctets[36]; 
+    long decimal; 
     
-    int octets[4];
-    int i, j, div;
-    int bits = 0; //how many iterations? 8 of course
-    int newOctet[16]; 
+
+    // Attempt to parse IP address into four integers
+    sscanf(ipAddress, "%d.%d.%d.%d", &octet0, &octet1, &octet2, &octet3);
+
+    
+    convertToBinary(octet0, octetOfBinary0); 
+    convertToBinary(octet1, octetOfBinary1);
+    convertToBinary(octet2, octetOfBinary2); 
+    convertToBinary(octet3, octetOfBinary3); 
+
+    combineAllOctets(octetOfBinary0, 0, allOctets); 
+    combineAllOctets(octetOfBinary1, 8, allOctets); 
+    combineAllOctets(octetOfBinary2, 16, allOctets); 
+    combineAllOctets(octetOfBinary3, 24, allOctets); 
+
+    decimal = convertBinaryToDecimal(allOctets); 
+
+    *numDigits = countDig(decimal); 
+
+    return decimal;
+}
+
+void convertToBinary (int octet, int octetBinary [8]){ 
+
+    int div = octet;
+    for (int i = 7; i >= 0; i--) {
+        octetBinary[i] = div % 2;
+        div = div / 2;
+    }
+}
+
+
+void combineAllOctets (int octetBinary[8], int pos, int binaryAllOctets [32]){
+
+    int j = 0; 
+
+    for (int i = pos; i < pos + 8; i++)
+    {
+        binaryAllOctets[i] = octetBinary[j]; 
+        j++; 
+    }
+}
+
+
+long int convertBinaryToDecimal (int binaryAllOctets [32]){
     char placeHolderTemp[36] = ""; //this will temperorially hold each binary block
     char binaryStr[36] = ""; //this will hold the full binary string
-    long finalLong; 
-
-    sscanf(ipAddress, "%d.%d.%d.%d", &octets[0], &octets[1], &octets[2], &octets[3]);
-
-    for (i = 0; i < 4; i++) //run for all 4 octets
-    {
-        bits = 0;
-        div = octets[i]; 
-        do{
-            newOctet[bits] = div % 2;
-            div = div / 2;
-            bits++;
-        }while(bits != 8);
-
-        for(j = bits -1; j>=0;j--){
-            sprintf(placeHolderTemp, "%d", newOctet[j]);
-            strcat(binaryStr,placeHolderTemp); 
-        }
+    int i; 
+    long decimal; 
+    for(i = 0; i < 32; i++){
+        sprintf(placeHolderTemp, "%d", binaryAllOctets[i]);
+        strcat(binaryStr,placeHolderTemp); 
     }
-
-    finalLong = strtol(binaryStr, NULL, 2);
-    return finalLong; 
+    decimal = strtol(binaryStr, NULL, 2);
+    return decimal; 
 }
 
 int countDig (int finalLong){ //digit counter
@@ -80,6 +112,7 @@ int countDig (int finalLong){ //digit counter
 
     return counter; 
 }
+
 
 char classifyIPAddress (char ipAddress []){ //task 3
 
